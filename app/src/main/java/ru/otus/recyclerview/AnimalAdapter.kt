@@ -8,15 +8,17 @@ import java.util.*
 private const val TYPE_CAT = 1
 private const val TYPE_DOG = 2
 private const val TYPE_HAMSTER = 3
+private const val TYPE_HEADER = 4
 
-class AnimalAdapter() : ListAdapter<Animal, AnimalViewHolder>(AnimalItemDiffCallback()) {
+class AnimalAdapter() : ListAdapter<Items, AnimalViewHolder>(AnimalItemDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int = when (getItem(position)) {
         is Animal.Cat -> TYPE_CAT
         is Animal.Dog -> TYPE_DOG
         is Animal.Hamster -> TYPE_HAMSTER
+        is HeaderModel -> TYPE_HEADER
     }
-
+    
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimalViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
@@ -30,6 +32,10 @@ class AnimalAdapter() : ListAdapter<Animal, AnimalViewHolder>(AnimalItemDiffCall
 
             TYPE_HAMSTER -> AnimalViewHolder.Hamster(
                 inflater.inflate(R.layout.item_hamster, parent, false)
+            )
+
+            TYPE_HEADER -> AnimalViewHolder.Header(
+                inflater.inflate(R.layout.item_header, parent, false)
             )
 
             else -> error("none")
@@ -48,7 +54,7 @@ class AnimalAdapter() : ListAdapter<Animal, AnimalViewHolder>(AnimalItemDiffCall
         submitList(newList)
     }
 
-    fun getAnimal(position: Int): Animal = getItem(position)
+    fun getAnimal(position: Int): Items = getItem(position)
 
     fun onExchanged(fromPosition: Int, toPosition: Int) {
         val list = currentList.toMutableList()

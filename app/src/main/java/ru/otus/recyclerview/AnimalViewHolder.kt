@@ -8,17 +8,17 @@ sealed class AnimalViewHolder(
     view: View
 ) : RecyclerView.ViewHolder(view) {
 
-    abstract fun bind(animal: Animal)
+    abstract fun bind(model: Items)
 
     class Cat(view: View): AnimalViewHolder(view) {
 
         private val name = view.findViewById<TextView>(R.id.name)
         private val age = view.findViewById<TextView>(R.id.age)
 
-        override fun bind(animal: Animal) {
-            animal as Animal.Cat
-            name.text = animal.name
-            age.text = animal.age.toString()
+        override fun bind(model: Items) {
+            model as Animal.Cat
+            name.text = model.name
+            age.text = model.age.toString()
         }
     }
 
@@ -27,10 +27,10 @@ sealed class AnimalViewHolder(
         private val name = view.findViewById<TextView>(R.id.name)
         private val age = view.findViewById<TextView>(R.id.age)
 
-        override fun bind(animal: Animal) {
-            animal as Animal.Dog
-            name.text = animal.name
-            age.text = animal.age.toString()
+        override fun bind(model: Items) {
+            model as Animal.Dog
+            name.text = model.name
+            age.text = model.age.toString()
         }
     }
 
@@ -39,11 +39,20 @@ sealed class AnimalViewHolder(
         private val name = view.findViewById<TextView>(R.id.name)
         private val age = view.findViewById<TextView>(R.id.age)
 
-        override fun bind(animal: Animal) {
-            animal as Animal.Hamster
-            name.text = animal.name
-            age.text = animal.age.toString()
+        override fun bind(model: Items) {
+            model as Animal.Hamster
+            name.text = model.name
+            age.text = model.age.toString()
         }
     }
 
+    class Header(view: View): AnimalViewHolder(view), StickyHolder {
+
+        private val header = view.findViewById<TextView>(R.id.header)
+
+        override fun bind(model: Items) {
+            model as HeaderModel
+            header.text = model.name
+        }
+    }
 }

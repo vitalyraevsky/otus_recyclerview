@@ -8,13 +8,15 @@ import java.util.*
 private const val TYPE_CAT = 1
 private const val TYPE_DOG = 2
 private const val TYPE_HAMSTER = 3
+private const val TYPE_HEADER = 4
 
-class AnimalAdaptePlay() : ListAdapter<Animal, AnimalViewHolderPlay>(AnimalItemDiffCallback()) {
+class AnimalAdaptePlay() : ListAdapter<Items, AnimalViewHolderPlay>(AnimalItemDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int = when (getItem(position)) {
         is Animal.Cat -> TYPE_CAT
         is Animal.Dog -> TYPE_DOG
         is Animal.Hamster -> TYPE_HAMSTER
+        is HeaderModel -> TYPE_HEADER
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimalViewHolderPlay {
@@ -30,6 +32,10 @@ class AnimalAdaptePlay() : ListAdapter<Animal, AnimalViewHolderPlay>(AnimalItemD
 
             TYPE_HAMSTER -> AnimalViewHolderPlay.Hamster(
                 inflater.inflate(R.layout.item_hamster, parent, false)
+            )
+
+            TYPE_HEADER -> AnimalViewHolderPlay.Header(
+                inflater.inflate(R.layout.item_header, parent, false)
             )
 
             else -> error("Improssibru")
@@ -55,7 +61,7 @@ class AnimalAdaptePlay() : ListAdapter<Animal, AnimalViewHolderPlay>(AnimalItemD
         submitList(newList)
     }
 
-    fun getAnimal(position: Int): Animal = getItem(position)
+    fun getAnimal(position: Int): Items = getItem(position)
 
     fun onExchanged(fromPosition: Int, toPosition: Int) {
         val list = currentList.toMutableList()

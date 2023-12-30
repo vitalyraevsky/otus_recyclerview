@@ -1,7 +1,9 @@
 package ru.otus.recyclerview
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -43,18 +45,28 @@ class MainActivity : AppCompatActivity() {
         recycler.swapAdapter(adapter, false)
         recycler.setItemViewCacheSize(10)
         recycler.recycledViewPool.setMaxRecycledViews(1 , 10)
+        recycler.addItemDecoration(StickyHeaderDecoration(
+            isHeaderPredicate = { it is HeaderModel},
+            populateAction = { view, model -> populateStickyHeader(view, model) }
+        ))
         //recycler.addItemDecoration(DividerDecoration())
         //recycler.addItemDecoration(AnimalItemDecoration(this, R.drawable.divider, false))
-        ItemTouchHelper(AnimalTouchCallback()).attachToRecyclerView(recycler)
-        LinearSnapHelper().attachToRecyclerView(recycler)
+        //ItemTouchHelper(AnimalTouchCallback()).attachToRecyclerView(recycler)
+        //LinearSnapHelper().attachToRecyclerView(recycler)
         //PagerSnapHelper().attachToRecyclerView(recycler)
 
         //(recycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     }
 
-    private fun generateAnimals(count: Int): List<Animal> {
+    private fun populateStickyHeader(view: View, model: Items) {
+        if (model !is HeaderModel) return
+        val header = view.findViewById<TextView>(R.id.header)
+        header.text = model.name
+    }
+
+    private fun generateAnimals(count: Int): List<Items> {
         return (0 until count).map { index ->
-            val type = Random.nextInt(0, 3)
+            val type = Random.nextInt(0, 4)
             when (type) {
                 0 -> Animal.Cat(
                     id = "$index",
@@ -72,6 +84,10 @@ class MainActivity : AppCompatActivity() {
                     id = "$index",
                     name = "Hamster $index",
                     age = Random.nextInt(0, 6)
+                )
+                3 -> HeaderModel(
+                    id = "$index",
+                    name = "Header $index",
                 )
                 else -> error("Unsupported type")
             }
