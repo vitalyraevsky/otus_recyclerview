@@ -10,7 +10,7 @@ sealed class AnimalViewHolder(
 
     abstract fun bind(model: Items)
 
-    class Cat(view: View): AnimalViewHolder(view) {
+    class Cat(view: View) : AnimalViewHolder(view) {
 
         private val name = view.findViewById<TextView>(R.id.name)
         private val age = view.findViewById<TextView>(R.id.age)
@@ -22,7 +22,7 @@ sealed class AnimalViewHolder(
         }
     }
 
-    class Dog(view: View): AnimalViewHolder(view) {
+    class Dog(view: View) : AnimalViewHolder(view) {
 
         private val name = view.findViewById<TextView>(R.id.name)
         private val age = view.findViewById<TextView>(R.id.age)
@@ -34,7 +34,7 @@ sealed class AnimalViewHolder(
         }
     }
 
-    class Hamster(view: View): AnimalViewHolder(view) {
+    class Hamster(view: View) : AnimalViewHolder(view) {
 
         private val name = view.findViewById<TextView>(R.id.name)
         private val age = view.findViewById<TextView>(R.id.age)
@@ -46,7 +46,7 @@ sealed class AnimalViewHolder(
         }
     }
 
-    class Header(view: View): AnimalViewHolder(view), StickyHolder {
+    class Header(view: View) : AnimalViewHolder(view), StickyHolder {
 
         private val header = view.findViewById<TextView>(R.id.header)
 

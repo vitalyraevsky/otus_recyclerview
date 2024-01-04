@@ -5,14 +5,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
-import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SimpleItemAnimator
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -44,9 +37,9 @@ class MainActivity : AppCompatActivity() {
         //recycler.adapter = adapter
         recycler.swapAdapter(adapter, false)
         recycler.setItemViewCacheSize(10)
-        recycler.recycledViewPool.setMaxRecycledViews(1 , 10)
+        recycler.recycledViewPool.setMaxRecycledViews(1, 10)
         recycler.addItemDecoration(StickyHeaderDecoration(
-            isHeaderPredicate = { it is HeaderModel},
+            isHeaderPredicate = { it is HeaderModel },
             populateAction = { view, model -> populateStickyHeader(view, model) }
         ))
         //recycler.addItemDecoration(DividerDecoration())

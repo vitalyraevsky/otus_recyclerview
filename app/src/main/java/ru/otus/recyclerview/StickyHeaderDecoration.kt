@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class StickyHeaderDecoration (
+class StickyHeaderDecoration(
     private val isHeaderPredicate: ((Items) -> Boolean),
     private val populateAction: (View, Items) -> Unit = { _, _ -> }
-): RecyclerView.ItemDecoration() {
+) : RecyclerView.ItemDecoration() {
 
     private var headerHeight = 0
 

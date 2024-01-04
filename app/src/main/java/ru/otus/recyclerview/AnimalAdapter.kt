@@ -3,7 +3,7 @@ package ru.otus.recyclerview
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import java.util.*
+import java.util.Collections
 
 private const val TYPE_CAT = 1
 private const val TYPE_DOG = 2
@@ -18,7 +18,7 @@ class AnimalAdapter() : ListAdapter<Items, AnimalViewHolder>(AnimalItemDiffCallb
         is Animal.Hamster -> TYPE_HAMSTER
         is HeaderModel -> TYPE_HEADER
     }
-    
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimalViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
@@ -45,7 +45,6 @@ class AnimalAdapter() : ListAdapter<Items, AnimalViewHolder>(AnimalItemDiffCallb
     override fun onBindViewHolder(holder: AnimalViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
 
     fun onItemRemoved(position: Int) {
         val newList = currentList.toMutableList().apply {
